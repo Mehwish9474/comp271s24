@@ -4,9 +4,9 @@ import java.util.Scanner;
 import java.io.InputStream;
 
 /*
-NO IMPORT STATEMENTS. NO CALLS TO SYSTEM.anything, except for 
-System.out.println or print or printf as needed.
- */
+
+NO IMPORT STATEMENTS. NO CALLS TO SYSTEM.anything, except for System.out.println or print or printf if needed
+ */ 
 public class BookReview {
 
     /**
