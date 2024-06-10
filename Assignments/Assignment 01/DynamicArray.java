@@ -1,19 +1,7 @@
-/*
- * In the class below, write two methods:
- * 
- * First, method resize() to expand the existing array data by doubling its size.
- *
- * Second, method contains(String string) that returns true if String string already
- * exists in array data and false otherwise.
- *
- * Your code must have comments explaining what is done and why it is done in the
- * way you do it.
- *
- * DO NOT USE any tools that require to be imported, ie, do not use the import command.
- *
+/* 
  * To save this assignment, make sure you commit your changes to your GitHub repository,
  * following the instructions in Sakai. IF YOU DO NOT COMMIT THE CHANGES, IT IS POSSIBLE THAT
- * YOUR WORK MAY BE LOST AND YOU MAY HAVE TO START ALL OVER AGAIN.
+ * YOUR WORK MAY BE LOST AND YOU MAY HAVE TO START ALL OVER AGAIN. Mehwish Tabassum
  */
 public class DynamicArray {
 
@@ -41,7 +29,7 @@ public class DynamicArray {
     } // default constructor
 
     /**
-     * Adds a new item to array data after ensurig there is 
+     * Adds a new item to array data after ensuring there is 
      * sufficient room by resizing the array if necessary.
      * @param string new item to add to array
      */
@@ -54,5 +42,45 @@ public class DynamicArray {
         this.data[this.position] = string;
         this.position++;
     } // method add
-    
+
+    /**
+     * Resizes the underlying array to accommodate more elements.
+     */
+    private void resize() {
+        String[] newData = new String[this.data.length * 2];
+        System.arraycopy(this.data, 0, newData, 0, this.data.length);
+        this.data = newData;
+    } // method resize
+
+    /**
+     * Counts the number of times the specified string appears in the array.
+     * @param string the string to count in the array
+     * @return the number of occurrences of the string
+     */
+    public int countOf(String string) {
+        int count = 0;
+        for (int i = 0; i < this.position; i++) {
+            if (this.data[i].equals(string)) {
+                count++;
+            }
+        }
+        return count;
+    } // method countOf
+
+    /**
+     * The main method to test the DynamicArray class.
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        DynamicArray dynamicArray = new DynamicArray();
+        dynamicArray.add("dog");
+        dynamicArray.add("cat");
+        dynamicArray.add("dot");
+        dynamicArray.add("cat");
+        dynamicArray.add("bird");
+
+        System.out.println("Count of 'dot': " + dynamicArray.countOf("dot")); // should print 1
+        System.out.println("Count of 'cat': " + dynamicArray.countOf("cat")); // should print 2
+        System.out.println("Count of 'frog': " + dynamicArray.countOf("frog")); // should print 0
+    } // method main
 } // class DynamicArray
