@@ -5,7 +5,7 @@
 public class Station {
 
     /** The name of the train station */
-    private String name; 
+    private final String name; 
     /** The station immediately after */
     private Station next;
 

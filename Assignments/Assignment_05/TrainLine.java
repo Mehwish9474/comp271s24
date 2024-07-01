@@ -108,6 +108,7 @@ public class TrainLine {
                     // Update the return variable to indicate a successful insertion
                     success = true;
                 }
+                current = current.getNext(); // move to the next station
             }
         }
         return success;
@@ -116,6 +117,7 @@ public class TrainLine {
     /**
      * Textual representation of this TrainLine
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (this.head == null) {
@@ -132,7 +134,12 @@ public class TrainLine {
         return sb.toString();
     } // method toString
 
-    /** STUB FOR indexOf */
+    /**
+     * Returns the index of the station with the specified name.
+     * 
+     * @param name the name of the station to search for
+     * @return the index of the station, or -1 if not found
+     */
     public int indexOf(String name) {
         return indexOfHelper(this.head, name, 0);
     } // method indexOf
@@ -154,18 +161,4 @@ public class TrainLine {
      */
     public void append(TrainLine other) {
         if (other.head == null) {
-            return; // Nothing to append if the other line is empty
-        }
-        if (this.head == null) {
-            // If this line is empty, just set head and tail to the other line's head and tail
-            this.head = other.head;
-            this.tail = other.tail;
-        } else {
-            // Link the tail of this line to the head of the other line
-            this.tail.setNext(other.head);
-            // Update the tail to the new tail of the combined line
-            this.tail = other.tail;
-        }
-        this.numberOfStations += other.numberOfStations;
-    } // method append
-}
+            return; // Nothing to append if
