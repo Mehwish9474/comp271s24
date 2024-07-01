@@ -161,4 +161,18 @@ public class TrainLine {
      */
     public void append(TrainLine other) {
         if (other.head == null) {
-            return; // Nothing to append if
+            return; // Nothing to append if the other line is empty
+        }
+        if (this.head == null) {
+            // If this line is empty, just set head and tail to the other line's head and tail
+            this.head = other.head;
+            this.tail = other.tail;
+        } else {
+            // Link the tail of this line to the head of the other line
+            this.tail.setNext(other.head);
+            // Update the tail to the new tail of the combined line
+            this.tail = other.tail;
+        }
+        this.numberOfStations += other.numberOfStations;
+    } // method append
+}
