@@ -69,8 +69,7 @@ public class TrainLine {
      * @return true if station found; false otherwise or if object has no stations.
      */
     public boolean contains(String stationName) {
-        // Use indexOf method to determine presence of station
-        return this.indexOf(stationName) != -1;
+        return indexOf(stationName) != -1;
     } // method contains
 
     /**
@@ -95,8 +94,8 @@ public class TrainLine {
             Station current = this.head;
             while (current != null) {
                 // Check if the current station is the one we are looking for.
-                // If the intended station is not found, we skip the if block,
-                // the while-loop eventually ends, and we return the initial
+                // If the intended station is not found, we skill the if block,
+                // the while-loop eventually ends, and we return the intial
                 // value of success which is still false.
                 if (current.getName().equals(existingStationName)) {
                     // Intended station found, time to get things going, first
@@ -106,16 +105,10 @@ public class TrainLine {
                     newStation.setNext(current.getNext());
                     // Make the existing station point to the new station
                     current.setNext(newStation);
-                    // Update tail if necessary
-                    if (current == this.tail) {
-                        this.tail = newStation;
-                    }
                     // Update the return variable to indicate a successful insertion
                     success = true;
-                    this.numberOfStations++;
-                    break;
                 }
-                current = current.getNext();
+                current = current.getNext(); // Move to the next station
             }
         }
         return success;
@@ -142,42 +135,35 @@ public class TrainLine {
 
     /** STUB FOR indexOf */
     public int indexOf(String name) {
-        // Initialize index counter
-        int index = 0;
-        // Start from the head of the TrainLine
-        Station current = this.head;
-        // Traverse the TrainLine
-        while (current != null) {
-            // Check if the current station matches the given name
-            if (current.getName().equals(name)) {
-                // Return the index if a match is found
-                return index;
-            }
-            // Move to the next station
-            current = current.getNext();
-            // Increment the index counter
-            index++;
-        }
-        // Return -1 if the station is not found
-        return -1;
+        return indexOfHelper(this.head, name, 0);
     } // method indexOf
 
-    /** Appends another TrainLine to this one */
+    private int indexOfHelper(Station current, String name, int index) {
+        if (current == null) {
+            return -1;
+        }
+        if (current.getName().equals(name)) {
+            return index;
+        }
+        return indexOfHelper(current.getNext(), name, index + 1);
+    }
+
+    /**
+     * Appends another TrainLine to the end of this TrainLine.
+     * 
+     * @param other The TrainLine to append.
+     */
     public void append(TrainLine other) {
-        // Check if the other TrainLine is not empty
-        if (other.head == null) return;
-        // Check if this TrainLine is empty
+        if (other == null || other.head == null) {
+            return;
+        }
         if (this.head == null) {
-            // Make this TrainLine point to the other TrainLine
             this.head = other.head;
             this.tail = other.tail;
         } else {
-            // Attach the other TrainLine to the end of this TrainLine
             this.tail.setNext(other.head);
-            // Update the tail to be the tail of the other TrainLine
             this.tail = other.tail;
         }
-        // Update the station counter
         this.numberOfStations += other.numberOfStations;
-    } // method append
-} // DONE!
+    }
+}
